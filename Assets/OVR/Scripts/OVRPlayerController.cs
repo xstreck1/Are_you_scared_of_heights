@@ -154,7 +154,7 @@ public class OVRPlayerController : OVRComponent
 			FallSpeed += ((Physics.gravity.y * (GravityModifier * 0.002f)) * DeltaTime);	
 
 		moveDirection.y += FallSpeed * DeltaTime;
-
+				
 		// Offset correction for uneven ground
 		float bumpUpOffset = 0.0f;
 		
@@ -180,6 +180,7 @@ public class OVRPlayerController : OVRComponent
 		// sliding the rotation for a more natural movement and body visual
 		UpdatePlayerForwardDirTransform();
 	}
+	
 		
 	// UpdateMovement
 	//

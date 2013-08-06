@@ -18,6 +18,7 @@ public class ORTransport : MonoBehaviour {
 		// Control is pressed - set up "fly mode"
 		if (Input.GetKeyDown(KeyCode.LeftControl) && controller.isGrounded) {
 			forward = GameObject.Find("ForwardDirection").transform.forward;
+			player.Stop();
 			player.GravityModifier = 0f;
 		}
 		// Control is released - return to the original movement.
