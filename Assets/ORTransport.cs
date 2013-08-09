@@ -8,15 +8,17 @@ public class ORTransport : MonoBehaviour {
 	float grav_modif = 0f; //< Storing original gravity modifier
 	OVRPlayerController player; //< Reference to the player object
 	CharacterController controller; //< Reference to the controller object.
-	GameObject forward_vector;
-	GameObject platform;
+	GameObject forward_vector; //< Object storing the forward direction of the player.
+	GameObject platform; //< Platform underneath the player.
 	
 	void Awake() {
+		// Locate references
 		player = GetComponent<OVRPlayerController>();
 		controller = GetComponent<CharacterController>();
-		grav_modif = player.GravityModifier;
 		forward_vector = GameObject.Find("ForwardDirection");
 		platform = GameObject.Find("Platform");
+		
+		grav_modif = player.GravityModifier; // Remember the original gravity.
 	}
 	
 	void Update() {
