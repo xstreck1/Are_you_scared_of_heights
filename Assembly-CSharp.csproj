@@ -44,7 +44,9 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ORTransport.cs" />
+     <Compile Include="Assets\AreYouScared\Scripts\ORTransport.cs" />
+     <Compile Include="Assets\AreYouScared\Scripts\Respawn.cs" />
+     <Compile Include="Assets\AreYouScared\Scripts\Transport.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRCamera.cs" />
@@ -60,9 +62,7 @@
      <Compile Include="Assets\OVR\Scripts\OVRPlayerController.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRPresetManager.cs" />
      <Compile Include="Assets\OVR\Scripts\OVRUtils.cs" />
-     <Compile Include="Assets\Respawn.cs" />
-     <Compile Include="Assets\Transport.cs" />
-     <Compile Include="Assets\Walk_sound.cs" />
+     <Compile Include="Assets\Test\Walk_sound.cs" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection_CA.shader" />
      <None Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.shader" />
      <None Include="Assets\OVR\Shaders\OVRGUIShader.shader" />
