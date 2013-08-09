@@ -3,7 +3,7 @@ using System.Collections;
 
 // Class that allows the player to fly when space is pressed.
 public class ORTransport : MonoBehaviour {
-	const UnityEngine.KeyCode FLY_KEY = KeyCode.Space;
+	const UnityEngine.KeyCode FLY_KEY = KeyCode.LeftControl;
 	const int FLY_BUTTON = (int) OVRGamepadController.Button.A;
 	bool button_down = false; //< Used for determining whether the XBox button was already pressed.
 	
