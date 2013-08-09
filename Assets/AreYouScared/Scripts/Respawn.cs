@@ -22,21 +22,24 @@ public class Respawn : MonoBehaviour
 	float fading_counter = 0f;
 	const float FADING_TIME = 2f;
 	float pause_counter = 0f;
-	const float PAUSE_TIME = 2f;
+	const float PAUSE_TIME = 4f;
+	const float PAUSE_FRACT = 4f; //< Fraction of the pause where the fall stops.
 	float lighting_counter = 0f;
 	const float LIGHTING_TIME = 2f;
+	
+	// Additional
+	SoundManager sound_manager;
 
-	// Use this for initialization
 	void Start ()
 	{
-		player = GetComponent<OVRPlayerController> ();
+		player = GetComponent<OVRPlayerController>();
+		sound_manager = GetComponent<SoundManager>();
 		black_texture = new Texture2D (1, 1);
 		black_texture.SetPixel (0, 0, new Color (0, 0, 0, 255));
 		black_texture.Apply ();
 		respaw_pos = player.transform.position;
 	}
 
-	// Update is called once per frame
 	void Update()
 	{
 		if (player.transform.position.y < DEATH_HEIGHT && fade_part == FadePart.none) {
@@ -69,9 +72,10 @@ public class Respawn : MonoBehaviour
 		
 		case FadePart.pause: 
 			if (pause_counter < PAUSE_TIME) {
-				if (pause_counter < PAUSE_TIME / 2 && pause_counter + Time.deltaTime >= PAUSE_TIME / 2) {
+				if (pause_counter < PAUSE_TIME / PAUSE_FRACT && pause_counter + Time.deltaTime >= PAUSE_TIME / PAUSE_FRACT) {
 					player.Stop ();
-					player.transform.position = respaw_pos;					
+					player.transform.position = respaw_pos;
+					sound_manager.playHit();
 				}
 				pause_counter += Time.deltaTime;
  
