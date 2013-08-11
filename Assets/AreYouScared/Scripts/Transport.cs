@@ -1,26 +1,127 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// Class that allows the player to fly when space is pressed.
 public class Transport : MonoBehaviour {
-	Vector3 forward = Vector3.one; 	//< Vector storing last forward direction
+	const UnityEngine.KeyCode FLY_KEY = KeyCode.LeftControl;
+	const int FLY_BUTTON = (int) OVRGamepadController.Button.A;
+	bool button_down = false; //< Used for determining whether the XBox button was already pressed.
+	
+	// Common movement control.
+	Vector3 forward = Vector3.one; 	//< Vector storing last forward direction.
+	CharacterController controller; //< Reference to the controller object.
+	bool using_OR = false;
+	
+	// OR based movement control.
+	OVRPlayerController player; //< Reference to the player object
+	GameObject forward_vector; //< Object storing the forward direction of the player.
+	float grav_modif = 0f; //< Storing original gravity modifier
+	
+	// Non-OR based movement control.
+	CharacterMotor motor;
+	
+	GameObject platform; //< Platform underneath the player.
 	float move_speed = 2f; //< Speed of moving with "fly mode"
+	bool flying = false; //< Determines whether the player is flying now.
+	bool falling = false; //< Determines whether the player is falling now.
+	
+	void Start() {
+		// Locate references
+		controller = GetComponent<CharacterController>();
+		if (GameObject.Find("ForwardDirection") != null) {
+			using_OR = true;
+			player = GetComponent<OVRPlayerController>();
+			forward_vector = GameObject.Find("ForwardDirection");
+			grav_modif = player.GravityModifier; // Remember the original gravity.
+		} else {
+			using_OR = false;
+			motor = GetComponent<CharacterMotor>();
+		}
+		platform = GameObject.Find("Platform");
+	}
 	
 	void Update() {
-		CharacterMotor motor = GetComponent<CharacterMotor>();
-		CharacterController controller = GetComponent<CharacterController>();
-		
 		// Control is pressed - set up "fly mode"
-		if (Input.GetKeyDown(KeyCode.LeftControl) && controller.isGrounded) {
-			forward = controller.transform.forward;
-			motor.movement.gravity = 0;
+		if (isFlyKeyDown() && controller.isGrounded) {
+			if (using_OR) {
+				forward = forward_vector.transform.forward;
+				player.Stop();
+				player.GravityModifier = 0f;
+			} else {
+				forward = controller.transform.forward;
+				motor.SetVelocity(Vector3.zero);
+				motor.movement.gravity = 0;
+			}
+			platform.renderer.enabled = true;
+			platform.audio.enabled = true;
+			flying = true;
 		}
 		// Control is released - return to the original movement.
-		if (Input.GetKeyUp(KeyCode.LeftControl)) {
-			motor.movement.gravity = -Physics.gravity.y;
+		if (isFlyKeyUp()) {
+			if (using_OR) {
+				player.GravityModifier = grav_modif;
+			} else { 
+				motor.movement.gravity = -Physics.gravity.y;
+			}
+			platform.renderer.enabled = false;
+			platform.audio.enabled = false;
+			flying = false;
 		}
 		// Control is held - continue movement.
-		if (Input.GetKey(KeyCode.LeftControl)) {
+		if (isFlyKey() && flying) {
 			controller.Move(forward * Time.deltaTime * move_speed);
-		}		
-	}		
+		}	
+		
+		if (!controller.isGrounded && !flying)
+			falling = true;
+		else
+			falling = false;
+	}
+	
+	public bool isFlying() {
+		return flying;
+	}
+	
+	public bool isFalling() {
+		return falling;
+	}
+	
+	public bool isArrowKey() {
+		return Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow); 
+	}
+	
+	public bool isWSAD() {
+		return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D); 		
+	}
+	
+	public bool isLeftJoy() {
+		return (OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftYAxis) != 0f) || (OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftXAxis) != 0f);
+	}
+	
+	public bool isMoveIn() {
+		return isArrowKey() || isWSAD() || isLeftJoy();
+	}
+	
+	public bool isFlyKeyDown() {
+		if (OVRGamepadController.GPC_GetButton(FLY_BUTTON) && !button_down) {
+			button_down = true;
+			return true;
+		}
+		else 
+			return Input.GetKeyDown(FLY_KEY);
+	}
+	
+	public bool isFlyKey() {
+		if (OVRGamepadController.GPC_GetButton(FLY_BUTTON) && button_down) 
+			return true;
+		else 
+			return Input.GetKey(FLY_KEY);				
+	}
+	
+	public bool isFlyKeyUp() {
+		if (!OVRGamepadController.GPC_GetButton(FLY_BUTTON) && button_down) 
+			return true;
+		else 
+			return Input.GetKeyUp(FLY_KEY);		
+	}
 }

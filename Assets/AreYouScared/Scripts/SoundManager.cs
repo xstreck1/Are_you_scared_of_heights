@@ -2,13 +2,13 @@
 using System.Collections;
 
 public class SoundManager : MonoBehaviour {
-	ORTransport transport;
+	Transport transport;
 	UnityEngine.AudioSource feet;
 	UnityEngine.AudioSource wind;
 	UnityEngine.AudioSource hit;
 	
 	void Start () {
-		transport = GetComponent<ORTransport>();
+		transport = GetComponent<Transport>();
 		feet = GameObject.Find("Feet").audio;
 		wind = GameObject.Find("Wind").audio;
 		hit = GameObject.Find("Hit").audio;
