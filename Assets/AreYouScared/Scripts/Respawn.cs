@@ -5,7 +5,9 @@ using System.Collections;
 public class Respawn : MonoBehaviour
 {
 	Vector3 respaw_pos = Vector3.zero; //< Position where the player currently respawns.
-	OVRPlayerController player; //< Reference to the player object
+	GameObject player;
+	OVRPlayerController control; //< Reference to the player object
+	CharacterMotor motor;
 	const float DEATH_HEIGHT = -30f; //< Where to start dying.
 	const string RESPAWN_NAME = "Respawn"; //< Names of the obects that will cause respawn.
 	
@@ -32,19 +34,25 @@ public class Respawn : MonoBehaviour
 
 	void Start ()
 	{
-		player = GetComponent<OVRPlayerController>();
-		sound_manager = GetComponent<SoundManager>();
+		player = GameObject.Find ("Player");
+		if (SystemHelper.isUsingRift ()) {
+			control = GetComponent<OVRPlayerController> ();
+		} else {
+			motor = GetComponent<CharacterMotor> ();
+		}
+		
+		sound_manager = GetComponent<SoundManager> ();
 		black_texture = new Texture2D (1, 1);
 		black_texture.SetPixel (0, 0, new Color (0, 0, 0, 255));
 		black_texture.Apply ();
 		respaw_pos = player.transform.position;
 	}
 
-	void Update()
+	void Update ()
 	{
 		if (player.transform.position.y < DEATH_HEIGHT && fade_part == FadePart.none) {
-			setFadePart(FadePart.fall);
-			Debug.Log("Fall detected.");
+			setFadePart (FadePart.fall);
+			Debug.Log ("Fall detected.");
 		}
 	}
 	
@@ -67,20 +75,24 @@ public class Respawn : MonoBehaviour
  
 				GUI.color = new Color (0, 0, 0, alphaFadeValue);			
 			} else 
-				setFadePart(FadePart.pause); 
+				setFadePart (FadePart.pause); 
 			break;
 		
 		case FadePart.pause: 
 			if (pause_counter < PAUSE_TIME) {
 				if (pause_counter < PAUSE_TIME / PAUSE_FRACT && pause_counter + Time.deltaTime >= PAUSE_TIME / PAUSE_FRACT) {
-					player.Stop ();
+					if (SystemHelper.isUsingRift ()) {
+						control.Stop ();
+					} else {
+						motor.SetVelocity (Vector3.zero);
+					}
 					player.transform.position = respaw_pos;
-					sound_manager.playHit();
+					sound_manager.playHit ();
 				}
 				pause_counter += Time.deltaTime;
  
 			} else 
-				setFadePart(FadePart.bright);
+				setFadePart (FadePart.bright);
 			break;
 			
 		case FadePart.bright: 
@@ -90,7 +102,7 @@ public class Respawn : MonoBehaviour
  
 				GUI.color = new Color (0, 0, 0, 1 - alphaFadeValue);		
 			} else 
-				setFadePart(FadePart.none);		
+				setFadePart (FadePart.none);		
 			break;
 		}
 		

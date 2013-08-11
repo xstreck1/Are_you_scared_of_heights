@@ -46,6 +46,7 @@
   <ItemGroup>
      <Compile Include="Assets\AreYouScared\Scripts\Respawn.cs" />
      <Compile Include="Assets\AreYouScared\Scripts\SoundManager.cs" />
+     <Compile Include="Assets\AreYouScared\Scripts\SystemHelper.cs" />
      <Compile Include="Assets\AreYouScared\Scripts\Transport.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRImageEffectBase.cs" />
      <Compile Include="Assets\OVR\OVRImageEffects\OVRLensCorrection.cs" />

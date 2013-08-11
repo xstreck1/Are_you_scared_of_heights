@@ -11,7 +11,6 @@ public class Transport : MonoBehaviour
 	// Common movement control.
 	Vector3 forward = Vector3.one; 	//< Vector storing last forward direction.
 	CharacterController controller; //< Reference to the controller object.
-	bool using_OR = false;
 	
 	// OR based movement control.
 	OVRPlayerController player; //< Reference to the player object
@@ -20,6 +19,7 @@ public class Transport : MonoBehaviour
 	
 	// Non-OR based movement control.
 	CharacterMotor motor;
+	
 	GameObject platform; //< Platform underneath the player.
 	bool flying = false; //< Determines whether the player is flying now.
 	bool falling = false; //< Determines whether the player is falling now.
@@ -32,13 +32,11 @@ public class Transport : MonoBehaviour
 	{
 		// Locate references
 		controller = GetComponent<CharacterController> ();
-		if (GameObject.Find ("ForwardDirection") != null) {
-			using_OR = true;
+		if (SystemHelper.isUsingRift()) {
 			player = GetComponent<OVRPlayerController> ();
 			forward_vector = GameObject.Find ("ForwardDirection");
 			grav_modif = player.GravityModifier; // Remember the original gravity.
 		} else {
-			using_OR = false;
 			motor = GetComponent<CharacterMotor> ();
 		}
 		platform = GameObject.Find ("Platform");
@@ -47,7 +45,7 @@ public class Transport : MonoBehaviour
 	// Initiate flighting.
 	void startFlight ()
 	{
-		if (using_OR) {
+		if (SystemHelper.isUsingRift()) {
 			forward = forward_vector.transform.forward;
 			player.Stop ();
 			player.GravityModifier = 0f;
@@ -64,7 +62,7 @@ public class Transport : MonoBehaviour
 	// Cease flighting.
 	void stopFlight ()
 	{
-		if (using_OR) {
+		if (SystemHelper.isUsingRift()) {
 			player.GravityModifier = grav_modif;
 		} else { 
 			motor.movement.gravity = -Physics.gravity.y;
