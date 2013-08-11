@@ -28,6 +28,8 @@ public class Transport : MonoBehaviour
 	public float FLY_TIME = 5f; //< How long can one fly.
 	float flight_counter = 0f; //< How long have I already flown.
 	
+	SoundManager sound_manager;
+	
 	void Start ()
 	{
 		// Locate references
@@ -40,6 +42,7 @@ public class Transport : MonoBehaviour
 			motor = GetComponent<CharacterMotor> ();
 		}
 		platform = GameObject.Find ("Platform");
+		sound_manager = GetComponent<SoundManager> ();
 	}
 	
 	// Initiate flighting.
@@ -87,6 +90,10 @@ public class Transport : MonoBehaviour
 			controller.Move (forward * Time.deltaTime * fligth_speed);
 		}	
 		
+		if (controller.isGrounded && falling) {
+			sound_manager.playHit();
+		}
+		
 		if (!controller.isGrounded && !flying) {
 			falling = true;
 		} else {
@@ -100,6 +107,7 @@ public class Transport : MonoBehaviour
 		} else {
 			flight_counter = 0;
 		}
+		
 	}
 	
 	public bool isFlying ()

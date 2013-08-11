@@ -87,7 +87,7 @@ public class Respawn : MonoBehaviour
 						motor.SetVelocity (Vector3.zero);
 					}
 					player.transform.position = respaw_pos;
-					sound_manager.playHit ();
+					sound_manager.playDeath ();
 				}
 				pause_counter += Time.deltaTime;
  
