@@ -20,12 +20,12 @@ public class Respawn : MonoBehaviour
 	};
 	FadePart fade_part = FadePart.none; //< Currently active part of the fading.
 	float fading_counter = 0f;
-	const float FADING_TIME = 2f;
+	public float FADING_TIME = 2f;
 	float pause_counter = 0f;
-	const float PAUSE_TIME = 4f;
-	const float PAUSE_FRACT = 4f; //< Fraction of the pause where the fall stops.
+	public float PAUSE_TIME = 4f;
+	public float PAUSE_FRACT = 4f; //< Fraction of the pause where the fall stops.
 	float lighting_counter = 0f;
-	const float LIGHTING_TIME = 2f;
+	public float LIGHTING_TIME = 2f;
 	
 	// Additional
 	SoundManager sound_manager;
