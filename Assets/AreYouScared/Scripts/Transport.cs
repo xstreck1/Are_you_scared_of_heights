@@ -23,6 +23,8 @@ public class Transport : MonoBehaviour
 	GameObject platform; //< Platform underneath the player.
 	bool flying = false; //< Determines whether the player is flying now.
 	bool falling = false; //< Determines whether the player is falling now.
+	public float HIT_DELAY = 0.5f; //< After how long fall is the hit audible.
+	float hit_count = 0f; //< Falling counter.
 	
 	public float fligth_speed = 2f; //< Speed of moving with "fly mode"
 	public float FLY_TIME = 5f; //< How long can one fly.
@@ -90,16 +92,24 @@ public class Transport : MonoBehaviour
 			controller.Move (forward * Time.deltaTime * fligth_speed);
 		}	
 		
-		if (controller.isGrounded && falling) {
-			sound_manager.playHit();
+		// Hit sound manager
+		if (falling) {
+			if (controller.isGrounded) {
+				if (hit_count > HIT_DELAY)
+					sound_manager.playHit();
+				hit_count = 0f;
+			}
+			hit_count += Time.deltaTime;
 		}
 		
+		// Fall determination.
 		if (!controller.isGrounded && !flying) {
 			falling = true;
 		} else {
 			falling = false;
 		}
 		
+		// Time window on flying.
 		if (flying) {
 			flight_counter += Time.deltaTime;
 			if (flight_counter >= FLY_TIME)
