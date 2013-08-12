@@ -92,13 +92,13 @@ public class Transport : MonoBehaviour
 			controller.Move (forward * Time.deltaTime * fligth_speed);
 		}	
 		
-		// Hit sound manager
+		// Hit sound management.
+		if (controller.isGrounded) {
+			if (hit_count > HIT_DELAY)
+				sound_manager.playHit();
+			hit_count = 0f;
+		}
 		if (falling) {
-			if (controller.isGrounded) {
-				if (hit_count > HIT_DELAY)
-					sound_manager.playHit();
-				hit_count = 0f;
-			}
 			hit_count += Time.deltaTime;
 		}
 		
