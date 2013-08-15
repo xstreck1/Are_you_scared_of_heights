@@ -7,8 +7,10 @@ public class Respawn : MonoBehaviour
 	Vector3 respaw_pos = Vector3.zero; //< Position where the player currently respawns.
 	OVRPlayerController control; //< Reference to the player object
 	CharacterMotor motor;
-	public float DEATH_HEIGHT = -30f; //< Where to start dying.
+	Transport transport;
+	float fall_start;
 	const string RESPAWN_NAME = "Respawn"; //< Names of the obects that will cause respawn.
+	public float DEATH_HEIGHT = 50f; //< Where to start dying.
 	
 	// Controls connected to screen fading.
 	Texture2D  black_texture; //< Texture to hold the full black color.
@@ -33,6 +35,9 @@ public class Respawn : MonoBehaviour
 
 	void Start ()
 	{
+		transport = GetComponent<Transport> ();
+		fall_start = transform.position.y;
+		
 		if (SystemHelper.isUsingRift ()) {
 			control = GetComponent<OVRPlayerController> ();
 		} else {
@@ -48,7 +53,12 @@ public class Respawn : MonoBehaviour
 
 	void Update ()
 	{
-		if (transform.position.y < DEATH_HEIGHT && fade_part == FadePart.none) {
+		if (!transport.isFalling()) {
+			fall_start = transform.position.y;
+		} 
+		Debug.Log((fall_start - transform.position.y).ToString());
+		
+		if (((fall_start - transform.position.y) > DEATH_HEIGHT) && fade_part == FadePart.none) {
 			setFadePart (FadePart.fall);
 			Debug.Log ("Fall detected.");
 		}
