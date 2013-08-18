@@ -23,7 +23,8 @@ public class Transport : MonoBehaviour
 	GameObject platform; //< Platform underneath the player.
 	bool flying = false; //< Determines whether the player is flying now.
 	bool falling = false; //< Determines whether the player is falling now.
-	public float HIT_DELAY = 0.5f; //< After how long fall is the hit audible.
+	public float HIT_DELAY = 1f; //< After how long fall is the hit audible.
+	public float HIT_RANGE = 10f; //< The time range in which the hit sound increases in volume.
 	float hit_counter = 0f; //< Falling counter.
 	
 	public float fligth_speed = 2f; //< Speed of moving with "fly mode"
@@ -98,7 +99,7 @@ public class Transport : MonoBehaviour
 		// Hit sound management.
 		if (controller.isGrounded) {
 			if (hit_counter > HIT_DELAY)
-				sound_manager.playHit();
+				sound_manager.playHit((hit_counter - HIT_DELAY) / HIT_RANGE);
 			hit_counter = 0f;
 		}
 		if (falling) {

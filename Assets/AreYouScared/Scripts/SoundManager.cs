@@ -42,7 +42,8 @@ public class SoundManager : MonoBehaviour {
 		death.Play();
 	}
 	
-	public void playHit() {
+	public void playHit(float volume) {
+		hit.volume = Mathf.Clamp(volume,0f, 1f);
 		hit.loop = false;
 		hit.Play();
 	}
