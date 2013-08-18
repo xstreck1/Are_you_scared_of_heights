@@ -11,6 +11,8 @@ public class Respawn : MonoBehaviour
 	float fall_start;
 	const string RESPAWN_NAME = "Respawn"; //< Names of the obects that will cause respawn.
 	const string TRANSPORTER_TAG = "Transporter"; //< Transporter object tag.
+	const string DEBRIS_TRIGGER_TAG = "DebrisTrigger"; //< Debris trigger tag
+	const string DEBRIS_OBJECT_TAG = "DebrisObject"; //< Debris object tag
 	public float DEATH_HEIGHT = 50f; //< Where to start dying.
 	
 	// Controls connected to screen fading.
@@ -57,7 +59,7 @@ public class Respawn : MonoBehaviour
 		if (!transport.isFalling()) {
 			fall_start = transform.position.y;
 		} 
-		Debug.Log((fall_start - transform.position.y).ToString());
+		// Debug.Log((fall_start - transform.position.y).ToString());
 		
 		if (((fall_start - transform.position.y) > DEATH_HEIGHT) && fade_part == FadePart.none) {
 			setFadePart (FadePart.fall);
@@ -135,6 +137,15 @@ public class Respawn : MonoBehaviour
 		}
 		if (other.tag.CompareTo(TRANSPORTER_TAG) == 0) {
 			GetComponent<Transport>().enableFlight();
+		}
+		if (other.tag.CompareTo(DEBRIS_TRIGGER_TAG) == 0) {
+			sound_manager.playDebrisFall();
+			GameObject[] gos;
+        	gos = GameObject.FindGameObjectsWithTag(DEBRIS_OBJECT_TAG);
+			// Let them fall
+			foreach (GameObject my_object in gos) {
+				my_object.rigidbody.useGravity = true;
+			}
 		}
 	}
 }

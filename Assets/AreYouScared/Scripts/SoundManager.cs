@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour {
 	UnityEngine.AudioSource wind;
 	UnityEngine.AudioSource death;
 	UnityEngine.AudioSource hit;
+	UnityEngine.AudioSource debris_fall;
 	
 	void Start () {
 		transport = GetComponent<Transport>();
@@ -14,6 +15,7 @@ public class SoundManager : MonoBehaviour {
 		wind = GameObject.Find("Wind").audio;
 		death = GameObject.Find("Death").audio;
 		hit = GameObject.Find("Hit").audio;
+		debris_fall = GameObject.Find("DebrisSoundSource").audio;
 	}	
 	
 	void Update () {
@@ -46,5 +48,10 @@ public class SoundManager : MonoBehaviour {
 		hit.volume = Mathf.Clamp(volume,0f, 1f);
 		hit.loop = false;
 		hit.Play();
+	}
+	
+	public void playDebrisFall() {
+		debris_fall.loop = false;
+		debris_fall.Play();
 	}
 }
