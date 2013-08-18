@@ -10,6 +10,7 @@ public class Respawn : MonoBehaviour
 	Transport transport;
 	float fall_start;
 	const string RESPAWN_NAME = "Respawn"; //< Names of the obects that will cause respawn.
+	const string TRANSPORTER_TAG = "Transporter"; //< Transporter object tag.
 	public float DEATH_HEIGHT = 50f; //< Where to start dying.
 	
 	// Controls connected to screen fading.
@@ -131,6 +132,9 @@ public class Respawn : MonoBehaviour
 				particles.Stop();
 			else
 				other.renderer.enabled = false;
+		}
+		if (other.tag.CompareTo(TRANSPORTER_TAG) == 0) {
+			GetComponent<Transport>().enableFlight();
 		}
 	}
 }

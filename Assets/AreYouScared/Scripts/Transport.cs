@@ -31,6 +31,7 @@ public class Transport : MonoBehaviour
 	float acceleration = 0f; //< Acceleration dependent on the controler type.
 	public float FLY_TIME = 5f; //< How long can one fly.
 	float flight_counter = 0f; //< How long have I already flown.
+	bool flight_enabled = false; //< Is the flight mode enabled?
 	
 	SoundManager sound_manager;
 	
@@ -84,11 +85,11 @@ public class Transport : MonoBehaviour
 	void Update ()
 	{
 		// Control is pressed - set up "fly mode"
-		if (isFlyKeyDown () && controller.isGrounded) {
+		if (isFlyKeyDown () && controller.isGrounded && flight_enabled) {
 			startFlight ();
 		}
 		// Control is released - return to the original movement.
-		if (isFlyKeyUp ()) {
+		if (isFlyKeyUp () && flying) {
 			stopFlight ();
 		}
 		// Control is held - continue movement.
@@ -183,5 +184,9 @@ public class Transport : MonoBehaviour
 			return true;
 		} else 
 			return Input.GetKeyUp (FLY_KEY);		
+	}
+	
+	public void enableFlight() {
+		flight_enabled = true;
 	}
 }
