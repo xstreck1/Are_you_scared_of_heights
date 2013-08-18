@@ -27,6 +27,7 @@ public class Transport : MonoBehaviour
 	float hit_count = 0f; //< Falling counter.
 	
 	public float fligth_speed = 2f; //< Speed of moving with "fly mode"
+	float acceleration = 0f; //< Acceleration dependent on the controler type.
 	public float FLY_TIME = 5f; //< How long can one fly.
 	float flight_counter = 0f; //< How long have I already flown.
 	
@@ -40,8 +41,10 @@ public class Transport : MonoBehaviour
 			player = GetComponent<OVRPlayerController> ();
 			forward_vector = GameObject.Find ("ForwardDirection");
 			grav_modif = player.GravityModifier; // Remember the original gravity.
+			acceleration = player.Acceleration;
 		} else {
 			motor = GetComponent<CharacterMotor> ();
+			acceleration = motor.MaxSpeedInDirection(Vector3.up);
 		}
 		platform = GameObject.Find ("Platform");
 		sound_manager = GetComponent<SoundManager> ();
@@ -89,7 +92,7 @@ public class Transport : MonoBehaviour
 		}
 		// Control is held - continue movement.
 		if (isFlyKey () && flying) {
-			controller.Move (forward * Time.deltaTime * fligth_speed);
+			controller.Move (forward * Time.deltaTime * fligth_speed * acceleration);
 		}	
 		
 		// Hit sound management.
@@ -169,9 +172,10 @@ public class Transport : MonoBehaviour
 	
 	public bool isFlyKeyUp ()
 	{
-		if (!OVRGamepadController.GPC_GetButton ((int)FLY_BUTTON) && button_down) 
+		if (!OVRGamepadController.GPC_GetButton ((int)FLY_BUTTON) && button_down) {
+			button_down = false;
 			return true;
-		else 
+		} else 
 			return Input.GetKeyUp (FLY_KEY);		
 	}
 }

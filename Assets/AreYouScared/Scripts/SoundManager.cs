@@ -18,16 +18,22 @@ public class SoundManager : MonoBehaviour {
 	
 	void Update () {
 		if (transport.isMoveIn() && !transport.isFlying() && !transport.isFalling()) {
-			feet.enabled = true;
+			if (!feet.isPlaying) {
+				feet.loop = true;
+				feet.Play();
+			}
 		}
-		else {
-			feet.enabled = false;	
+		else if (feet.isPlaying){
+			feet.Stop();	
 		}
 		
 		if (transport.isFalling()) {
-			wind.enabled = true;
-		} else {
-			wind.enabled = false;
+			if (!wind.isPlaying) {
+				wind.loop = true;
+				wind.Play();
+			}
+		} else if (wind.isPlaying) {
+			wind.Stop();
 		}
 	}
 	
