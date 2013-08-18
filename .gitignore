@@ -1,9 +1,11 @@
 ## Unity
+Assembly-*
 Library/Metadata*
 Library/Cache*
 Library/ScriptAssemblies*
 Obj/Debug*
 Temp*
+*csproj
 
 #################
 ## Eclipse
