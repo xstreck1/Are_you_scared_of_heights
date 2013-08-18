@@ -124,9 +124,13 @@ public class Respawn : MonoBehaviour
 	{
 		if (other.name.Contains (RESPAWN_NAME) || other.tag.CompareTo (RESPAWN_NAME) == 0) {
 			respaw_pos = other.transform.position;
-			ParticleSystem particles = other.GetComponent<ParticleSystem>();
-			particles.Stop();
+			respaw_pos.y += 2f;
 			other.collider.enabled = false;
+			ParticleSystem particles = other.GetComponent<ParticleSystem>();
+			if (particles != null)
+				particles.Stop();
+			else
+				other.renderer.enabled = false;
 		}
 	}
 }
