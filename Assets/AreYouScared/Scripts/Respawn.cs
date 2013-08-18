@@ -122,7 +122,11 @@ public class Respawn : MonoBehaviour
 	// What to do when trigger is hit
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.name.Contains (RESPAWN_NAME) || other.tag.CompareTo (RESPAWN_NAME) == 0) 
+		if (other.name.Contains (RESPAWN_NAME) || other.tag.CompareTo (RESPAWN_NAME) == 0) {
 			respaw_pos = other.transform.position;
+			ParticleSystem particles = other.GetComponent<ParticleSystem>();
+			particles.Stop();
+			other.collider.enabled = false;
+		}
 	}
 }
