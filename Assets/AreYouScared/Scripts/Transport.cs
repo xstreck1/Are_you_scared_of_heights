@@ -41,7 +41,7 @@ public class Transport : MonoBehaviour
 			player = GetComponent<OVRPlayerController> ();
 			forward_vector = GameObject.Find ("ForwardDirection");
 			grav_modif = player.GravityModifier; // Remember the original gravity.
-			acceleration = player.Acceleration;
+			acceleration = player.Acceleration * 15f;
 		} else {
 			motor = GetComponent<CharacterMotor> ();
 			acceleration = motor.MaxSpeedInDirection(Vector3.up);
