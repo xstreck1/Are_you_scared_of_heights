@@ -24,7 +24,7 @@ public class Transport : MonoBehaviour
 	bool flying = false; //< Determines whether the player is flying now.
 	bool falling = false; //< Determines whether the player is falling now.
 	public float HIT_DELAY = 0.5f; //< After how long fall is the hit audible.
-	float hit_count = 0f; //< Falling counter.
+	float hit_counter = 0f; //< Falling counter.
 	
 	public float fligth_speed = 2f; //< Speed of moving with "fly mode"
 	float acceleration = 0f; //< Acceleration dependent on the controler type.
@@ -97,12 +97,12 @@ public class Transport : MonoBehaviour
 		
 		// Hit sound management.
 		if (controller.isGrounded) {
-			if (hit_count > HIT_DELAY)
+			if (hit_counter > HIT_DELAY)
 				sound_manager.playHit();
-			hit_count = 0f;
+			hit_counter = 0f;
 		}
 		if (falling) {
-			hit_count += Time.deltaTime;
+			hit_counter += Time.deltaTime;
 		}
 		
 		// Fall determination.
@@ -122,6 +122,11 @@ public class Transport : MonoBehaviour
 		}
 		
 	}
+	
+	public void resetCounters() {
+		flight_counter = hit_counter = 0f;
+	}
+	
 	
 	public bool isFlying ()
 	{

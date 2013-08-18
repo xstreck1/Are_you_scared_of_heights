@@ -94,6 +94,7 @@ public class Respawn : MonoBehaviour
 					} else {
 						motor.SetVelocity (Vector3.zero);
 					}
+					transport.resetCounters();
 					transform.position = respaw_pos;
 					sound_manager.playDeath ();
 				}
@@ -121,7 +122,7 @@ public class Respawn : MonoBehaviour
 	// What to do when trigger is hit
 	void OnTriggerEnter (Collider other)
 	{
-		if (other.name.Contains (RESPAWN_NAME)) 
+		if (other.name.Contains (RESPAWN_NAME) || other.tag.CompareTo (RESPAWN_NAME) == 0) 
 			respaw_pos = other.transform.position;
 	}
 }
