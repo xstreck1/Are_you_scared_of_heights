@@ -137,6 +137,8 @@ public class Respawn : MonoBehaviour
 		}
 		if (other.tag.CompareTo(TRANSPORTER_TAG) == 0) {
 			GetComponent<Transport>().enableFlight();
+			other.collider.enabled = false;
+			other.renderer.enabled = false;
 		}
 		if (other.tag.CompareTo(DEBRIS_TRIGGER_TAG) == 0) {
 			sound_manager.playDebrisFall();
@@ -146,6 +148,8 @@ public class Respawn : MonoBehaviour
 			foreach (GameObject my_object in gos) {
 				my_object.rigidbody.useGravity = true;
 			}
+			other.collider.enabled = false;
+			other.renderer.enabled = false;
 		}
 	}
 }

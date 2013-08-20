@@ -1,17 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AreYouScared\Scripts\Transport.cs">
-    <Files>
-      <File FileName="Assets\AreYouScared\Scripts\Transport.cs" Line="95" Column="27" />
-      <File FileName="Assets\AreYouScared\Scripts\SoundManager.cs" Line="1" Column="1" />
-      <File FileName="Assets\AreYouScared\Scripts\Respawn.cs" Line="1" Column="1" />
-      <File FileName="Assets\AreYouScared\Scripts\SystemHelper.cs" Line="1" Column="1" />
-      <File FileName="Assets\OVR\Scripts\OVRGamepadController.cs" Line="1" Column="1" />
-      <File FileName="Assets\AreYouScared\Scripts\Rotate.cs" Line="1" Column="1" />
-      <File FileName="Assets\OVR\Scripts\OVRPlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets\Standard Assets\Character Controllers\Sources\Scripts\CharacterMotor.js" Line="1" Column="1" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
