@@ -20,7 +20,7 @@ public class Transport : MonoBehaviour
 	// Non-OR based movement control.
 	CharacterMotor motor;
 	
-	GameObject platform; //< Platform underneath the player.
+	Platform platform; //< Platform underneath the player.
 	bool flying = false; //< Determines whether the player is flying now.
 	bool falling = false; //< Determines whether the player is falling now.
 	public float HIT_DELAY = 1f; //< After how long fall is the hit audible.
@@ -48,7 +48,7 @@ public class Transport : MonoBehaviour
 			motor = GetComponent<CharacterMotor> ();
 			acceleration = motor.MaxSpeedInDirection(Vector3.one) / 5f;
 		}
-		platform = GameObject.Find ("Platform");
+		platform = GetComponentInChildren<Platform>();
 		sound_manager = GetComponent<SoundManager> ();
 	}
 	
@@ -64,8 +64,7 @@ public class Transport : MonoBehaviour
 			motor.SetVelocity (Vector3.zero);
 			motor.movement.gravity = 0;
 		}
-		platform.renderer.enabled = true;
-		platform.audio.enabled = true;
+		platform.startFlight();
 		flying = true;
 	}
 	
@@ -77,8 +76,7 @@ public class Transport : MonoBehaviour
 		} else { 
 			motor.movement.gravity = -Physics.gravity.y;
 		}
-		platform.renderer.enabled = false;
-		platform.audio.enabled = false;
+		platform.stopFlight();
 		flying = false;
 	}
 	

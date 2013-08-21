@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\AreYouScared\Scripts\PickUpAndDestroy.cs" />
+     <Compile Include="Assets\AreYouScared\Scripts\Platform.cs" />
      <Compile Include="Assets\AreYouScared\Scripts\Respawn.cs" />
      <Compile Include="Assets\AreYouScared\Scripts\Rotate.cs" />
      <Compile Include="Assets\AreYouScared\Scripts\SoundManager.cs" />
