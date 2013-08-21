@@ -22,10 +22,12 @@ public class Transport : MonoBehaviour
 	
 	Platform platform; //< Platform underneath the player.
 	bool flying = false; //< Determines whether the player is flying now.
+	bool floating = false; //< Condition where the player is not flying anymore but not falling yet.
 	bool falling = false; //< Determines whether the player is falling now.
 	public float HIT_DELAY = 1f; //< After how long fall is the hit audible.
 	public float HIT_RANGE = 10f; //< The time range in which the hit sound increases in volume.
 	float hit_counter = 0f; //< Falling counter.
+	float to_disappear = float.MaxValue;
 	
 	public float fligth_speed = 2f; //< Speed of moving with "fly mode"
 	float acceleration = 0f; //< Acceleration dependent on the controler type.
@@ -49,6 +51,7 @@ public class Transport : MonoBehaviour
 			acceleration = motor.MaxSpeedInDirection(Vector3.one) / 5f;
 		}
 		platform = GetComponentInChildren<Platform>();
+		
 		sound_manager = GetComponent<SoundManager> ();
 	}
 	
@@ -64,20 +67,27 @@ public class Transport : MonoBehaviour
 			motor.SetVelocity (Vector3.zero);
 			motor.movement.gravity = 0;
 		}
-		platform.startFlight();
+		platform.startFlight(FLY_TIME);
 		flying = true;
 	}
 	
-	// Cease flighting.
-	void stopFlight ()
+	void startFall ()
 	{
+		floating = false;
+		falling = true;
 		if (SystemHelper.isUsingRift()) {
 			player.GravityModifier = grav_modif;
 		} else { 
 			motor.movement.gravity = -Physics.gravity.y;
 		}
-		platform.stopFlight();
+		platform.destroyPlatform();
+	}
+	
+	void ceaseFlight() {
 		flying = false;
+		floating = true;
+		platform.dissolvePlatform();
+		to_disappear = 0f;
 	}
 	
 	void Update ()
@@ -88,13 +98,13 @@ public class Transport : MonoBehaviour
 		}
 		// Control is released - return to the original movement.
 		if (isFlyKeyUp () && flying) {
-			stopFlight ();
+			ceaseFlight ();
 		}
 		// Control is held - continue movement.
 		if (isFlyKey () && flying) {
 			Vector3 move_vec = forward * Time.deltaTime * fligth_speed * acceleration;
-			controller.Move (move_vec);
-			platform.move(move_vec);
+			if (platform.isPlatformBuilt())
+				controller.Move (move_vec);
 		}	
 		
 		// Hit sound management.
@@ -108,7 +118,7 @@ public class Transport : MonoBehaviour
 		}
 		
 		// Fall determination.
-		if (!controller.isGrounded && !flying) {
+		if (!controller.isGrounded && !flying && !floating) {
 			falling = true;
 		} else {
 			falling = false;
@@ -118,21 +128,32 @@ public class Transport : MonoBehaviour
 		if (flying) {
 			flight_counter += Time.deltaTime;
 			if (flight_counter >= FLY_TIME)
-				stopFlight();
+				ceaseFlight();
 		} else {
 			flight_counter = 0;
 		}
 		
+		// Stop flying when the platform disspears.
+		if (to_disappear < platform.getDissaperTime()) {
+			to_disappear += Time.deltaTime;
+			if (to_disappear > platform.getDissaperTime()) {
+				startFall();
+				to_disappear = float.MaxValue;
+			}
+		}
 	}
 	
 	public void resetCounters() {
 		flight_counter = hit_counter = 0f;
 	}
 	
-	
 	public bool isFlying ()
 	{
 		return flying;
+	}
+	
+	public bool isFloating () {
+		return floating;
 	}
 	
 	public bool isFalling ()
