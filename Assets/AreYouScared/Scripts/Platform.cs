@@ -58,7 +58,7 @@ public class Platform : MonoBehaviour
 	}
 	
 	// Create a single cube and move it from the central cube
-	void createCube (Vector3 move, float TTL)
+	void createCube (Vector3 move, float TTL, bool randomize)
 	{
 		GameObject new_cube = (GameObject)Instantiate (cube_obj, cube_obj.transform.position, cube_obj.transform.rotation);
 		new_cube.transform.Translate (move);
@@ -66,7 +66,8 @@ public class Platform : MonoBehaviour
 		new_cube.renderer.enabled = true;
 		new_cube.transform.parent = transform;
 		cubes.Add (new_cube);
-		cubes_TTL.Add(TTL - APPEAR_TIME + DISAPPAER_TIME);
+		float time = randomize ? TTL : Random.Range(0f, TTL);
+		cubes_TTL.Add(time - APPEAR_TIME + DISAPPAER_TIME);
 	}
 	
 	// Start flying mode - create a platform and play it's sound
@@ -81,12 +82,13 @@ public class Platform : MonoBehaviour
 		pos.x -= CUBE_SPACE * CUBE_X_COUNT / 2.0f;
 		pos.z -= CUBE_SPACE * CUBE_Z_COUNT / 2.0f;
 		
+		int last_brick = Random.Range(0,CUBE_X_COUNT-1); 
 		for (int x = 0; x < CUBE_X_COUNT; x++) {
 			for (int z = 0; z < CUBE_Z_COUNT; z++) {
 				Vector3 new_pos = pos;
 				new_pos.x += x * CUBE_SPACE;
 				new_pos.z += z * CUBE_SPACE;
-				createCube (new_pos, TTL);
+				createCube (new_pos, TTL, (x == CUBE_X_COUNT/2) && (z == CUBE_Z_COUNT/2));
 			}			
 		}
 		
