@@ -92,7 +92,9 @@ public class Transport : MonoBehaviour
 		}
 		// Control is held - continue movement.
 		if (isFlyKey () && flying) {
-			controller.Move (forward * Time.deltaTime * fligth_speed * acceleration);
+			Vector3 move_vec = forward * Time.deltaTime * fligth_speed * acceleration;
+			controller.Move (move_vec);
+			platform.move(move_vec);
 		}	
 		
 		// Hit sound management.
