@@ -83,7 +83,9 @@ public class Transport : MonoBehaviour
 		platform.destroyPlatform();
 	}
 	
-	void ceaseFlight() {
+	public void ceaseFlight() {
+		if (!flying)
+			return;
 		flying = false;
 		floating = true;
 		platform.dissolvePlatform();
@@ -141,6 +143,10 @@ public class Transport : MonoBehaviour
 				to_disappear = float.MaxValue;
 			}
 		}
+	}
+	
+	public void setFlightEnabled(bool _enabled) {
+		flight_enabled = _enabled;
 	}
 	
 	public void resetCounters() {

@@ -15,11 +15,12 @@ public class SoundManager : MonoBehaviour {
 		wind = GameObject.Find("Wind").audio;
 		death = GameObject.Find("Death").audio;
 		hit = GameObject.Find("Hit").audio;
-		// debris_fall = GameObject.Find("DebrisSoundSource").audio;
+		if (GameObject.Find("DebrisSoundSource") != null)
+			debris_fall = GameObject.Find("DebrisSoundSource").audio;
 	}	
 	
 	void Update () {
-		if (transport.isMoveIn() && !transport.isFlying() && !transport.isFalling() && !transport.isFloating()) {
+		if (transport.isMoveIn() && !transport.isFlying() && !transport.isFalling()) {
 			if (!feet.isPlaying) {
 				feet.loop = true;
 				feet.Play();

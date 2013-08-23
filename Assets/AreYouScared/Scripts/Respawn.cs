@@ -8,11 +8,9 @@ public class Respawn : MonoBehaviour
 	OVRPlayerController control; //< Reference to the player object
 	CharacterMotor motor;
 	Transport transport;
+	SystemHelper system_helper;
 	float fall_start;
 	const string RESPAWN_NAME = "Respawn"; //< Names of the obects that will cause respawn.
-	const string TRANSPORTER_TAG = "Transporter"; //< Transporter object tag.
-	const string DEBRIS_TRIGGER_TAG = "DebrisTrigger"; //< Debris trigger tag
-	const string DEBRIS_OBJECT_TAG = "DebrisObject"; //< Debris object tag
 	public float DEATH_HEIGHT = 50f; //< Where to start dying.
 	
 	// Controls connected to screen fading.
@@ -48,6 +46,7 @@ public class Respawn : MonoBehaviour
 		}
 		
 		sound_manager = GetComponent<SoundManager> ();
+		system_helper = GetComponent<SystemHelper>();
 		black_texture = new Texture2D (1, 1);
 		black_texture.SetPixel (0, 0, new Color (0, 0, 0, 255));
 		black_texture.Apply ();
@@ -100,6 +99,7 @@ public class Respawn : MonoBehaviour
 					transport.resetCounters();
 					transform.position = respaw_pos;
 					sound_manager.playDeath ();
+					system_helper.onDeath ();
 				}
 				pause_counter += Time.deltaTime;
  
@@ -134,22 +134,6 @@ public class Respawn : MonoBehaviour
 				particles.Stop();
 			else
 				other.renderer.enabled = false;
-		}
-		if (other.tag.CompareTo(TRANSPORTER_TAG) == 0) {
-			GetComponent<Transport>().enableFlight();
-			other.collider.enabled = false;
-			other.renderer.enabled = false;
-		}
-		if (other.tag.CompareTo(DEBRIS_TRIGGER_TAG) == 0) {
-			sound_manager.playDebrisFall();
-			GameObject[] gos;
-        	gos = GameObject.FindGameObjectsWithTag(DEBRIS_OBJECT_TAG);
-			// Let them fall
-			foreach (GameObject my_object in gos) {
-				my_object.rigidbody.useGravity = true;
-			}
-			other.collider.enabled = false;
-			other.renderer.enabled = false;
 		}
 	}
 }
