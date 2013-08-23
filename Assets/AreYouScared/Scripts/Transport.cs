@@ -25,7 +25,7 @@ public class Transport : MonoBehaviour
 	bool floating = false; //< Condition where the player is not flying anymore but not falling yet.
 	bool falling = false; //< Determines whether the player is falling now.
 	public float HIT_DELAY = 0.8f; //< After how long fall is the hit audible.
-	public float HIT_RANGE = 3f; //< The time range in which the hit sound increases in volume.
+	public float HIT_RANGE = 5f; //< The time range in which the hit sound increases in volume.
 	float hit_counter = 0f; //< Falling counter.
 	float to_disappear = float.MaxValue;
 	

@@ -55,6 +55,7 @@ public class SystemHelper : MonoBehaviour {
 			GetComponent<Transport>().enableFlight();
 			other.collider.enabled = false;
 			other.renderer.enabled = false;
+			other.audio.Stop();
 		}
 		if (other.tag.CompareTo(DEBRIS_TRIGGER_TAG) == 0) {
 			sound_manager.playDebrisFall();
