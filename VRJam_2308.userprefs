@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\AreYouScared\Scripts\Transport.cs">
+    <Files>
+      <File FileName="Assets\AreYouScared\Scripts\SoundManager.cs" Line="18" Column="6" />
+      <File FileName="Assets\OVR\Scripts\OVRDevice.cs" Line="378" Column="1" />
+      <File FileName="Assets\AreYouScared\Scripts\Platform.cs" Line="40" Column="7" />
+      <File FileName="Assets\AreYouScared\Scripts\Transport.cs" Line="48" Column="43" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

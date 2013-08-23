@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class SoundManager : MonoBehaviour {
@@ -15,7 +15,7 @@ public class SoundManager : MonoBehaviour {
 		wind = GameObject.Find("Wind").audio;
 		death = GameObject.Find("Death").audio;
 		hit = GameObject.Find("Hit").audio;
-		debris_fall = GameObject.Find("DebrisSoundSource").audio;
+		// debris_fall = GameObject.Find("DebrisSoundSource").audio;
 	}	
 	
 	void Update () {
