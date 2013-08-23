@@ -19,7 +19,7 @@ public class SoundManager : MonoBehaviour {
 	}	
 	
 	void Update () {
-		if (transport.isMoveIn() && !transport.isFlying() && !transport.isFalling()) {
+		if (transport.isMoveIn() && !transport.isFlying() && !transport.isFalling() && !transport.isFloating()) {
 			if (!feet.isPlaying) {
 				feet.loop = true;
 				feet.Play();

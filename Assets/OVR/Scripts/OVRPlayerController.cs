@@ -39,6 +39,7 @@ public class OVRPlayerController : OVRComponent
 {
 	protected CharacterController 	Controller 		 = null;
 	protected OVRCameraController 	CameraController = null;
+	protected Transport             transport        = null;
 
 	public float Acceleration 	   = 0.1f;
 	public float Damping 		   = 0.15f;
@@ -87,6 +88,7 @@ public class OVRPlayerController : OVRComponent
 		// and to be influenced by rotation
 		OVRCameraController[] CameraControllers;
 		CameraControllers = gameObject.GetComponentsInChildren<OVRCameraController>();
+		transport = GetComponent<Transport>();
 		
 		if(CameraControllers.Length == 0)
 			Debug.LogWarning("OVRPlayerController: No OVRCameraController attached.");
@@ -229,11 +231,11 @@ public class OVRPlayerController : OVRComponent
 		// Compute this for key movement
 		float moveInfluence = Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
 			
-		// Run!
-		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-			moveInfluence *= 2.0f;
+		// Run (disabled)
+		// if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+		// 	moveInfluence *= 2.0f;
 			
-		if(DirXform != null)
+		if(DirXform != null && !transport.isFloating() && !transport.isFlying() && !transport.isFalling())
 		{
 			if (moveForward)
 				MoveThrottle += DirXform.TransformDirection(Vector3.forward * moveInfluence);
@@ -281,7 +283,7 @@ public class OVRPlayerController : OVRComponent
 					     OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftTrigger);
 			
 		// Move
-		if(DirXform != null)
+		if(DirXform != null && !transport.isFloating() && !transport.isFlying() && !transport.isFalling())
 		{
 			float leftAxisY = 
 				OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftYAxis);
