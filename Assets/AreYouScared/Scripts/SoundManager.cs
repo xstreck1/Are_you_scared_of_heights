@@ -30,7 +30,7 @@ public class SoundManager : MonoBehaviour {
 			feet.Stop();	
 		}
 		
-		if (transport.isFalling()) {
+		if (transport.isFalling() && transport.isLongFall()) {
 			if (!wind.isPlaying) {
 				wind.loop = true;
 				wind.Play();

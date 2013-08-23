@@ -49,6 +49,9 @@ public class Platform : MonoBehaviour
 		
 		platform_built = appear_counter >= APPEAR_TIME && flying;
 		
+		if (platform_built && !audio.isPlaying)
+			audio.Play();
+		
 		if (platform_built) {
 			for(int cube_no = 0; cube_no < CUBE_COUNT; cube_no++) {
 				cubes_TTL[cube_no] -= Time.deltaTime;
@@ -74,8 +77,6 @@ public class Platform : MonoBehaviour
 	// Start flying mode - create a platform and play it's sound
 	public void startFlight (float TTL)
 	{
-		audio.loop = true;
-		audio.Play ();
 		flying = true;
 		rotation = transform.rotation;
 		

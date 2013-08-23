@@ -24,12 +24,12 @@ public class Transport : MonoBehaviour
 	bool flying = false; //< Determines whether the player is flying now.
 	bool floating = false; //< Condition where the player is not flying anymore but not falling yet.
 	bool falling = false; //< Determines whether the player is falling now.
-	public float HIT_DELAY = 0.1f; //< After how long fall is the hit audible.
+	public float HIT_DELAY = 0.8f; //< After how long fall is the hit audible.
 	public float HIT_RANGE = 3f; //< The time range in which the hit sound increases in volume.
 	float hit_counter = 0f; //< Falling counter.
 	float to_disappear = float.MaxValue;
 	
-	public float fligth_speed = 2f; //< Speed of moving with "fly mode"
+	public float fligth_speed = 3.3f; //< Speed of moving with "fly mode"
 	float acceleration = 0f; //< Acceleration dependent on the controler type.
 	public float FLY_TIME = 5f; //< How long can one fly.
 	float flight_counter = 0f; //< How long have I already flown.
@@ -111,7 +111,7 @@ public class Transport : MonoBehaviour
 		
 		// Hit sound management.
 		if (controller.isGrounded) {
-			if (hit_counter > HIT_DELAY)
+			if (isLongFall())
 				sound_manager.playHit((hit_counter - HIT_DELAY) / HIT_RANGE);
 			hit_counter = 0f;
 		}
@@ -215,5 +215,9 @@ public class Transport : MonoBehaviour
 	
 	public void enableFlight() {
 		flight_enabled = true;
+	}
+	
+	public bool isLongFall() {
+		return hit_counter > HIT_DELAY;
 	}
 }
