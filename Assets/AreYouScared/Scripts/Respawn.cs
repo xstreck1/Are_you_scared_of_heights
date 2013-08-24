@@ -134,6 +134,7 @@ public class Respawn : MonoBehaviour
 				particles.Stop();
 			else
 				other.renderer.enabled = false;
+			other.audio.Play();
 		}
 	}
 	
