@@ -136,4 +136,8 @@ public class Respawn : MonoBehaviour
 				other.renderer.enabled = false;
 		}
 	}
+	
+	public bool isInRespawn() {
+		return fade_part != FadePart.none;
+	}
 }

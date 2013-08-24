@@ -27,7 +27,7 @@ public class Platform : MonoBehaviour
 	void Start ()
 	{
 		cube_obj = GameObject.Find ("PlatformCube");
-		// cube_obj.renderer.enabled = false;
+		cube_obj.renderer.enabled = false;
 		cubes = new List<GameObject> ();
 		cubes_TTL = new List<float>();
 	}

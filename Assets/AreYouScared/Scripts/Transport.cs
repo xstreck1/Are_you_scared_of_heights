@@ -36,6 +36,7 @@ public class Transport : MonoBehaviour
 	public bool flight_enabled = false; //< Is the flight mode enabled?
 	
 	SoundManager sound_manager;
+	Respawn respawn;
 	
 	void Start ()
 	{
@@ -53,6 +54,7 @@ public class Transport : MonoBehaviour
 		platform = GetComponentInChildren<Platform>();
 		
 		sound_manager = GetComponent<SoundManager> ();
+		respawn = GetComponent<Respawn> ();
 	}
 	
 	// Initiate flighting.
@@ -111,7 +113,7 @@ public class Transport : MonoBehaviour
 		
 		// Hit sound management.
 		if (controller.isGrounded) {
-			if (isLongFall())
+			if (isLongFall() && !respawn.isInRespawn())
 				sound_manager.playHit((hit_counter - HIT_DELAY) / HIT_RANGE);
 			hit_counter = 0f;
 		}
