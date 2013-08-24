@@ -77,6 +77,10 @@ public class SystemHelper : MonoBehaviour {
 			this.audio.loop = true;
 			this.audio.Play();
 		}
+		
+		if (other.name.CompareTo("TriggerOff") == 0) {
+			this.audio.Stop();
+		}
 	}
 	
 	public void onDeath() {
