@@ -20,6 +20,9 @@ public class SystemHelper : MonoBehaviour {
 	GameObject elevator_platform;
 	CharacterController controller; //< Reference to the controller object.
 	
+	float to_fade = 0f;
+	const float FADE_TIME = 2f;
+	
 	void Start () {
 		transport = GetComponent<Transport>();
 		sound_manager = GetComponent<SoundManager> ();
@@ -45,6 +48,11 @@ public class SystemHelper : MonoBehaviour {
 		if (is_elevator) {
 			elevator_platform.transform.Translate(down * Time.deltaTime);
 			controller.Move(down * Time.deltaTime);
+		}
+		
+		if (to_fade > 0f) {
+			to_fade -= Time.deltaTime;
+			audio.volume = Mathf.Clamp01(to_fade / FADE_TIME);
 		}
 	}
 	
@@ -79,7 +87,7 @@ public class SystemHelper : MonoBehaviour {
 		}
 		
 		if (other.name.CompareTo("TriggerOff") == 0) {
-			this.audio.Stop();
+			to_fade = FADE_TIME;
 		}
 	}
 	
