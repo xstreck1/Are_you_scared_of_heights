@@ -73,6 +73,10 @@ public class SystemHelper : MonoBehaviour {
 			is_elevator = !is_elevator;
 			transport.setFlightEnabled(!is_elevator);
 		}
+		if (other.name.CompareTo("BGMusicStart") == 0) {
+			this.audio.loop = true;
+			this.audio.Play();
+		}
 	}
 	
 	public void onDeath() {
