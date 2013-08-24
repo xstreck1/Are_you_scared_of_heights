@@ -3,7 +3,10 @@ using System.Collections;
 
 public class RotatePlatform : MonoBehaviour {
 	
-	public int rotationSpeed = 5;
+	public int rotationX = 0;
+	public int rotationY = 0;
+	public int rotationZ = 5;
+	
 	
 	
 	// Use this for initialization
@@ -13,6 +16,6 @@ public class RotatePlatform : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.Rotate(0, 0, rotationSpeed*Time.deltaTime);
+		transform.Rotate(rotationX*Time.deltaTime, rotationY*Time.deltaTime, rotationZ*Time.deltaTime);
 	}
 }

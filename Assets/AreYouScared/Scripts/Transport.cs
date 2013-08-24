@@ -33,7 +33,7 @@ public class Transport : MonoBehaviour
 	float acceleration = 0f; //< Acceleration dependent on the controler type.
 	public float FLY_TIME = 5f; //< How long can one fly.
 	float flight_counter = 0f; //< How long have I already flown.
-	bool flight_enabled = false; //< Is the flight mode enabled?
+	bool flight_enabled = true; //< Is the flight mode enabled?
 	
 	SoundManager sound_manager;
 	
