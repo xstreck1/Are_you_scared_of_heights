@@ -279,8 +279,8 @@ public class OVRPlayerController : OVRComponent
 		moveInfluence = Acceleration * 0.1f * MoveScale * MoveScaleMultiplier;
 			
 		// Run!
-		moveInfluence *= 1.0f + 
-					     OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftTrigger);
+		// moveInfluence *= 1.0f + 
+		// 			     OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftTrigger);
 			
 		// Move
 		if(DirXform != null && !transport.isFloating() && !transport.isFlying() && !transport.isFalling())

@@ -27,7 +27,7 @@ public class Platform : MonoBehaviour
 	void Start ()
 	{
 		cube_obj = GameObject.Find ("PlatformCube");
-		cube_obj.renderer.enabled = false;
+		// cube_obj.renderer.enabled = false;
 		cubes = new List<GameObject> ();
 		cubes_TTL = new List<float>();
 	}
@@ -81,8 +81,8 @@ public class Platform : MonoBehaviour
 		rotation = transform.rotation;
 		
 		Vector3 pos = Vector3.zero;
-		pos.x -= CUBE_SPACE * CUBE_X_COUNT / 2.0f;
-		pos.z -= CUBE_SPACE * CUBE_Z_COUNT / 2.0f;
+		pos.x -= CUBE_SPACE * CUBE_X_COUNT / 2.0f; pos.x += CUBE_SPACE/2f;
+		pos.z -= CUBE_SPACE * CUBE_Z_COUNT / 2.0f; pos.z += CUBE_SPACE/2f;
 		
 		int last_brick = Random.Range(0,CUBE_X_COUNT-1); 
 		for (int x = 0; x < CUBE_X_COUNT; x++) {

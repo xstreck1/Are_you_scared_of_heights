@@ -187,9 +187,13 @@ public class Transport : MonoBehaviour
 		return isArrowKey () || isWSAD () || isLeftJoy ();
 	}
 	
+	bool isTrigger() {
+		return OVRGamepadController.GPC_GetAxis((int)OVRGamepadController.Axis.LeftTrigger) != 0f;
+	}
+	
 	public bool isFlyKeyDown ()
 	{
-		if (OVRGamepadController.GPC_GetButton ((int)FLY_BUTTON) && !button_down) {
+		if (isTrigger() && !button_down) {
 			button_down = true;
 			return true;
 		} else 
@@ -198,7 +202,7 @@ public class Transport : MonoBehaviour
 	
 	public bool isFlyKey ()
 	{
-		if (OVRGamepadController.GPC_GetButton ((int)FLY_BUTTON) && button_down) 
+		if (isTrigger() && button_down) 
 			return true;
 		else 
 			return Input.GetKey (FLY_KEY);				
@@ -206,7 +210,7 @@ public class Transport : MonoBehaviour
 	
 	public bool isFlyKeyUp ()
 	{
-		if (!OVRGamepadController.GPC_GetButton ((int)FLY_BUTTON) && button_down) {
+		if (!isTrigger() && button_down) {
 			button_down = false;
 			return true;
 		} else 
