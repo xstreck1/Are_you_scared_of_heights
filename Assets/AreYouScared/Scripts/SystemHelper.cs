@@ -80,14 +80,17 @@ public class SystemHelper : MonoBehaviour {
 			transport.ceaseFlight();
 			is_elevator = !is_elevator;
 			transport.setFlightEnabled(!is_elevator);
+			if (is_elevator) {
+				elevator_platform.audio.Play();
+			}
+			else {
+				elevator_platform.audio.Stop();
+				to_fade = FADE_TIME;
+			}
 		}
 		if (other.name.CompareTo("BGMusicStart") == 0) {
 			this.audio.loop = true;
 			this.audio.Play();
-		}
-		
-		if (other.name.CompareTo("TriggerOff") == 0) {
-			to_fade = FADE_TIME;
 		}
 	}
 	
