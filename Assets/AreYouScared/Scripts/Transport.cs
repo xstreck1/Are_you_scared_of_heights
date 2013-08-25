@@ -49,7 +49,7 @@ public class Transport : MonoBehaviour
 			acceleration = player.Acceleration * 15f;
 		} else {
 			motor = GetComponent<CharacterMotor> ();
-			acceleration = motor.MaxSpeedInDirection(Vector3.one) / 5f;
+			acceleration = motor.MaxSpeedInDirection(Vector3.one) / 2.45f;
 		}
 		platform = GetComponentInChildren<Platform>();
 		

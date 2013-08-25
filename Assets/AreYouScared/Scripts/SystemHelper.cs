@@ -24,6 +24,7 @@ public class SystemHelper : MonoBehaviour {
 	const float FADE_TIME = 2f;
 	
 	void Start () {
+		Screen.showCursor = false;
 		transport = GetComponent<Transport>();
 		sound_manager = GetComponent<SoundManager> ();
 		controller = GetComponent<CharacterController> ();
