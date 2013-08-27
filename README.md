@@ -10,18 +10,14 @@ The project is released under CC BY-SA.
 The repository contains music files taken from third parties, which are covered by their own licences. 
 See the pages of the respective authors for further details.
 
-	matthewmylne.com
-	
-		Matthew Mylne
+matthewmylne.com:
++ Matthew Mylne
 		
-	incompetech.com
+incompetech.com:
++ Kevin MacLeod - Clean Soul
+
+freesounds.org:
++ ecfike, nageor, 11linda, Calcuttan, acclivity, cgrebeld, LukerIRL, dobroide, soundmary, genghis attenborough, milton., lepolainyann
 	
-		Kevin MacLeod - Clean Soul
-		
-	freesounds.org
-	
-		ecfike, nageor, 11linda, Calcuttan, acclivity, cgrebeld, LukerIRL, dobroide, soundmary, genghis attenborough, milton., lepolainyann
-	
-	soundjay.com
-	
-		SoundJay
+soundjay.com:
++ SoundJay
